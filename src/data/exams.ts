@@ -31,6 +31,79 @@ export interface Exam {
 
 export const exams: Exam[] = [
   {
+    id: 'BCSE204P',
+    code: 'BCSE204P',
+    subject: 'DAA Lab',
+    date: '2026-04-16T09:40:00',
+    colors: {
+      bg: '#e0f7f4',
+      accent: '#14b8a6',
+      doneBg: '#b2ede8',
+      codeColor: '#0d6e66',
+    },
+    modules: [
+      {
+        id: 'BCSE204P-M1',
+        name: 'Module 1 — Greedy & Divide and Conquer',
+        topics: [
+          { id: 'BCSE204P-M1-T1', name: 'Fractional Knapsack (Greedy)' },
+          { id: 'BCSE204P-M1-T2', name: 'Maximum Subarray — Divide & Conquer' },
+          { id: 'BCSE204P-M1-T3', name: 'Karatsuba Multiplication' },
+        ],
+      },
+      {
+        id: 'BCSE204P-M2',
+        name: 'Module 2 — Dynamic Programming & Backtracking',
+        topics: [
+          { id: 'BCSE204P-M2-T1', name: 'Assembly Line Scheduling (DP)' },
+          { id: 'BCSE204P-M2-T2', name: 'Matrix Chain Multiplication (DP)' },
+          { id: 'BCSE204P-M2-T3', name: 'Longest Common Subsequence (DP)' },
+          { id: 'BCSE204P-M2-T4', name: '0-1 Knapsack (DP)' },
+          { id: 'BCSE204P-M2-T5', name: 'TSP — Dynamic Programming' },
+          { id: 'BCSE204P-M2-T6', name: 'N-Queens (Backtracking)' },
+          { id: 'BCSE204P-M2-T7', name: 'Subset Sum (Backtracking)' },
+          { id: 'BCSE204P-M2-T8', name: 'Graph Coloring (Backtracking)' },
+        ],
+      },
+      {
+        id: 'BCSE204P-M3',
+        name: 'Module 3 — String Matching',
+        topics: [
+          { id: 'BCSE204P-M3-T1', name: 'Naïve String Matching' },
+          { id: 'BCSE204P-M3-T2', name: 'KMP Algorithm' },
+          { id: 'BCSE204P-M3-T3', name: 'Rabin-Karp Algorithm' },
+          { id: 'BCSE204P-M3-T4', name: 'Suffix Trees (conceptual)' },
+        ],
+      },
+      {
+        id: 'BCSE204P-M4',
+        name: 'Module 4 — Graph Algorithms',
+        topics: [
+          { id: 'BCSE204P-M4-T1', name: 'Bellman-Ford Algorithm' },
+          { id: 'BCSE204P-M4-T2', name: 'Floyd-Warshall Algorithm' },
+        ],
+      },
+      {
+        id: 'BCSE204P-M5',
+        name: 'Module 5 — Geometric Algorithms',
+        topics: [
+          { id: 'BCSE204P-M5-T1', name: 'Line Segment Intersection (Sweeping Line)' },
+          { id: 'BCSE204P-M5-T2', name: 'Convex Hull — Graham\'s Scan' },
+          { id: 'BCSE204P-M5-T3', name: 'Convex Hull — Jarvis March' },
+        ],
+      },
+      {
+        id: 'BCSE204P-M7',
+        name: 'Module 7 — Approximation Algorithms',
+        topics: [
+          { id: 'BCSE204P-M7-T1', name: 'Vertex Cover Approximation' },
+          { id: 'BCSE204P-M7-T2', name: 'Set Cover Approximation' },
+          { id: 'BCSE204P-M7-T3', name: 'TSP Approximation (Travelling Salesman)' },
+        ],
+      },
+    ],
+  },
+  {
     id: 'BCSE205L',
     code: 'BCSE205L',
     subject: 'Computer Architecture and Organization',
