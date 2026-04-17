@@ -66,10 +66,13 @@ export default function App() {
     e.modules.flatMap((m) => m.topics).every((t) => completedTopics[t.id])
   ).length
 
+  const now = new Date()
   const sortedExams = [...exams].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   )
-  const nextExam = sortedExams.find((e) => new Date(e.date) > new Date())
+  const activeExams = sortedExams.filter((e) => new Date(e.date) > now)
+  const pastExams = sortedExams.filter((e) => new Date(e.date) <= now)
+  const nextExam = activeExams[0] ?? null
 
   return (
     <div className="min-h-screen" style={{ background: '#f5efe6' }}>
@@ -146,7 +149,7 @@ export default function App() {
         <main className="max-w-6xl mx-auto px-5 sm:px-8 py-8">
           {nextExam && <NextExamBanner exam={nextExam} />}
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-            {sortedExams.map((exam) => (
+            {activeExams.map((exam) => (
               <ExamCard
                 key={exam.id}
                 exam={exam}
@@ -156,6 +159,14 @@ export default function App() {
               />
             ))}
           </div>
+          {pastExams.length > 0 && (
+            <PastExamsSection
+              exams={pastExams}
+              completedTopics={completedTopics}
+              onToggleTopic={handleToggleTopic}
+              onStartStudying={(id) => navigateToStudy(id)}
+            />
+          )}
         </main>
       ) : (
         <StudyPage initialSubjectId={studySubjectId} />
@@ -236,6 +247,67 @@ function SmallUnit({ value, label, color }: { value: number; label: string; colo
         {pad(value)}
       </span>
       <span className="text-[8px] uppercase tracking-widest text-gray-400 mt-0.5">{label}</span>
+    </div>
+  )
+}
+
+// ── Past exams section ────────────────────────────────────────────────────────
+
+function PastExamsSection({
+  exams: pastExams,
+  completedTopics,
+  onToggleTopic,
+  onStartStudying,
+}: {
+  exams: (typeof exams)[0][]
+  completedTopics: Record<string, boolean>
+  onToggleTopic: (id: string) => void
+  onStartStudying: (id: string) => void
+}) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div className="mt-10">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center gap-2 mb-4 group"
+      >
+        <span className="text-[11px] font-bold tracking-[0.25em] uppercase text-gray-400 group-hover:text-gray-500 transition-colors">
+          Past exams
+        </span>
+        <span
+          className="text-[10px] font-semibold px-2 py-0.5 rounded-full text-gray-400"
+          style={{ background: 'rgba(0,0,0,0.06)' }}
+        >
+          {pastExams.length}
+        </span>
+        <svg
+          className={`w-3 h-3 text-gray-400 transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2.5}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <div
+        className="overflow-hidden transition-all duration-500"
+        style={{ maxHeight: open ? '9999px' : '0', opacity: open ? 1 : 0 }}
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 opacity-60">
+          {pastExams.map((exam) => (
+            <ExamCard
+              key={exam.id}
+              exam={exam}
+              completedTopics={completedTopics}
+              onToggleTopic={onToggleTopic}
+              onStartStudying={() => onStartStudying(exam.id)}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
